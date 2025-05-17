@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fb;
+            color: #333;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #007bff;
+            color: white;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .sidebar nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px 0;
+            display: block;
+            font-weight: 500;
+        }
+
+        .sidebar nav a:hover {
+            text-decoration: underline;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 32px;
+            color: #007bff;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input[type="file"],
+        input[type="time"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .flash-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 15px;
+            }
+
+            .main {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div>
+            <h2>Admin Dashboard</h2>
+            <nav>
+                <a href="#upload">Upload Files</a>
+                <a href="#sms">Schedule SMS</a>
+            </nav>
+        </div>
+        <a href="{{ url_for('logout') }}"><button class="logout-btn">Logout</button></a>
+    </div>
+
+    <div class="main">
+        <div class="section" id="upload">
+            <h1>Upload Files</h1>
+            <form action="/upload_files" method="POST" enctype="multipart/form-data">
+                <label for="timetable">Timetable CSV</label>
+                <input type="file" name="timetable" id="timetable" required>
+
+                <label for="students">Students CSV</label>
+                <input type="file" name="students" id="students" required>
+
+                <label for="supervisors">Supervisors CSV</label>
+                <input type="file" name="supervisors" id="supervisors" required>
+
+                <label for="classrooms">Classrooms CSV</label>
+                <input type="file" name="classrooms" id="classrooms" required>
+
+                <button type="submit">Upload Files</button>
+            </form>
+        </div>
+
+        <div class="section" id="sms">
+            <h1>Schedule SMS Notification</h1>
+            <form method="POST" action="/schedule_sms">
+                <label for="sms_date">Select Date:</label>
+                <input type="date" name="sms_date" id="sms_date" required>
+
+                <label for="sms_time">Select Time (24-hr):</label>
+                <input type="time" name="sms_time" id="sms_time" required>
+
+                <button type="submit">Schedule SMS</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
