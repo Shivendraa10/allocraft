@@ -3,9 +3,9 @@ from twilio.rest import Client
 import os
 
 # Twilio credentials (replace these with your actual Twilio credentials)
-TWILIO_PHONE_NUMBER = '+12313838912'  # Your Twilio phone number in E.164 format
-ACCOUNT_SID = 'ACed9baf95e8171314490a1aba4a46e408'
-AUTH_TOKEN = '986122c13afaf310762ca83845f8a1a5'
+TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PH_NO') # Your Twilio phone number in E.164 format
+ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+AUTH_TOKEN = os.getenv('TWILIO_ACCOUNT_SID')
 
 # Directory for generated files
 GENERATED_FOLDER = 'generated_files'
